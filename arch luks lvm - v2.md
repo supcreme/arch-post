@@ -47,7 +47,8 @@ lvcreate -l 100%FREE vg0 -n lv_swap
 # Format LVM partitions
 
 mkfs.ext4 /dev/vg0/lv_root
-mkfs.ext4 /dev/vg0/lv_home
+mkfs.xfs /dev/vg0/lv_home
+
 mkswap /dev/vg0/lv_swap
 
 
@@ -97,7 +98,8 @@ hwclock --systohc --utc
 # Add user
 nano /etc/sudoers
 # Uncomment to allow members of group wheel to execute any command %wheel ALL=(ALL) ALL
-useradd -m -g users -G wheel <username>
+#useradd -m -g users -G wheel <username>
+useradd -m -g users -G wheel -s /bin/zsh <username>
 passwd <username>
 
 #Add your newly created user to the wheel group by running
